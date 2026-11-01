@@ -1,32 +1,33 @@
 # DA-014: Bank Marketing Campaign Analysis
 
-An interactive Streamlit dashboard and Jupyter notebook for exploring the UCI Bank Marketing campaign dataset. This repository contains the dashboard, analysis notebook, bundled CSV, project presentation, and final report.
+An interactive Streamlit dashboard and Jupyter/Colab notebook for exploring the UCI Bank Marketing campaign dataset.
 
 ## Project structure
 
 ```text
 .
+├── prototype/
+│   └── README.md                 # Live dashboard link
 ├── data/
+│   ├── __init__.py
 │   ├── bank-additional-full.csv
 │   ├── download_dataset.py
-│   ├── SOURCE.md
-│   └── __init__.py
+│   └── SOURCE.md
 ├── notebooks/
 │   └── bank_marketing_analysis.ipynb
 ├── outputs/
-│   ├── Bank_Marketing_Campaign_Analysis.pptx
-│   ├── Bank_Marketing_Campaign_Analysis_Project_Report.docx
 │   ├── Bank_Marketing_Campaign_Analysis_Project_Report.pdf
-│   ├── Faculty_Demo_Guide.md
-│   └── Invertis_University_Logo_High_Resolution.png
+│   └── Report_Google_Doc_Link.md
 ├── main.py
 ├── README.md
-└── requirements.txt
+├── requirements.txt
+├── .gitattributes
+└── .gitignore
 ```
 
-## Run the dashboard
+## Run the dashboard locally
 
-Use Python 3.10 or newer. From the repository folder:
+Use Python 3.10 or newer. From the project folder in PowerShell:
 
 ```powershell
 py -m venv .venv
@@ -35,37 +36,22 @@ python -m pip install -r requirements.txt
 streamlit run main.py
 ```
 
-The dashboard and its analysis functions are in `main.py`. It reads `data/bank-additional-full.csv`. If the CSV is missing, restore it from the official UCI archive with:
-
-```powershell
-python data/download_dataset.py
-```
+The dashboard reads `data/bank-additional-full.csv`. The dataset download helper and source attribution are in `data/`.
 
 ## Run the notebook
 
-Open `notebooks/bank_marketing_analysis.ipynb` in Jupyter or Google Colab and run all cells. In Colab, upload `bank-additional-full.csv` into the runtime first (or upload and extract the project ZIP). The notebook searches the runtime root and a `data/` folder and includes its own analysis functions.
+Open `notebooks/bank_marketing_analysis.ipynb` in Jupyter or Google Colab and run the cells. The supplied CSV can be uploaded to the Colab session root or placed in a `data/` folder. The notebook contains the charts and analysis outputs from the updated Colab file.
 
 ## Dataset and calculations
 
-The dataset is **Bank Marketing (`bank-additional-full.csv`)** from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/222/bank+marketing), DOI `10.24432/C5K306`, licensed CC BY 4.0. Source and citation details are in [`data/SOURCE.md`](data/SOURCE.md).
+The project uses the UCI **Bank Marketing** dataset (`bank-additional-full.csv`), documented in [`data/SOURCE.md`](data/SOURCE.md). The target is `y`: `yes` indicates that a client subscribed to a term deposit. Response rate is successful `yes` responses divided by records with a valid yes/no target in the selected group.
 
-The target is `y`: `yes` means a client subscribed to a term deposit. Response rate is calculated as records with `y = yes` divided by all records with a valid `y` in the selected group. Each row is a campaign contact record; there is no unique customer identifier in this dataset. The source data contains 41,188 records and 4,640 `yes` outcomes (11.27% overall). The dashboard and notebook calculate these values from the data.
+The bundled dataset contains 41,188 records and 4,640 `yes` outcomes, an overall response rate of 11.27%. Dashboard and notebook calculations are based on the data. Segment comparisons are descriptive and do not establish causation.
 
-Cleaning trims text, treats `?` as missing, preserves `unknown` as an explicit category, parses numeric columns, and excludes only records without a valid yes/no target. The descriptive comparisons do not establish causation. `duration` is only known after contact and should not be used for pre-call targeting.
+## Dashboard and report
 
-## Dashboard features
+- Live dashboard: [Open the Bank Marketing prototype](https://bank-marketing-da-014-u3pnizm4t9g6wk8tpelvfg.streamlit.app/). A separate [prototype link file](prototype/README.md) is included.
+- Final PDF report: [`outputs/Bank_Marketing_Campaign_Analysis_Project_Report.pdf`](outputs/Bank_Marketing_Campaign_Analysis_Project_Report.pdf).
+- Editable Google Docs report: [`outputs/Report_Google_Doc_Link.md`](outputs/Report_Google_Doc_Link.md).
 
-- Overall and filtered record counts, successful responses, response rate, and average campaign contacts.
-- Filters for available categorical and numeric columns.
-- Response-rate comparisons by customer segment, contact frequency, channel, month, and weekday.
-- Filtered record preview, cleaning summary, and data-driven findings.
-
-See [`outputs/Faculty_Demo_Guide.md`](outputs/Faculty_Demo_Guide.md) for a short faculty walkthrough.
-
-## Project deliverables
-
-- [`outputs/Bank_Marketing_Campaign_Analysis_Project_Report.pdf`](outputs/Bank_Marketing_Campaign_Analysis_Project_Report.pdf) — final report.
-- [`outputs/Bank_Marketing_Campaign_Analysis_Project_Report.docx`](outputs/Bank_Marketing_Campaign_Analysis_Project_Report.docx) — editable report.
-- [`outputs/Bank_Marketing_Campaign_Analysis.pptx`](outputs/Bank_Marketing_Campaign_Analysis.pptx) — project presentation.
-
-The existing hosted dashboard is [available here](https://bank-marketing-da-014-u3pnizm4t9g6wk8tpelvfg.streamlit.app/). It remains connected to the previously configured repository. This repository is not connected to a new Streamlit deployment; pushing these files does not change the current deployment.
+To demonstrate the dashboard, open the prototype link, try the sidebar filters, and show how the KPIs and charts recalculate for the selected records.
